@@ -12,7 +12,6 @@ clock = pygame.time.Clock()
 
 
 class Particle(object):
-
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -27,7 +26,6 @@ class Particle(object):
         self.shrink_rate = self.growth_rate + 1
 
     def draw(self, win):
-
         pygame.draw.circle(
             win,
             (self.color, self.color, self.color),
@@ -40,7 +38,6 @@ class Particle(object):
             self.color = 30
 
     def movement(self):
-
         self.x += self.side_vel
         self.y += self.up_vel
 
@@ -56,9 +53,7 @@ class Particle(object):
 
 
 class Bloom_Particle(object):
-
     def __init__(self, x, y):
-
         self.spawn_radius = 50
         self.stagx = x
         self.stagy = y
@@ -83,7 +78,6 @@ class Bloom_Particle(object):
         self.bloom_up_vel = math.cos(self.bloom_effect_r) * -1
 
     def bloom(self):
-
         pygame.draw.circle(
             win,
             (self.color, self.color, self.color),
@@ -120,7 +114,6 @@ bloom_particles = [Bloom_Particle(500, 500)]
 
 def explode(duration):
     while duration:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -150,10 +143,10 @@ def explode(duration):
         clock.tick(60)
 
 
-duration1 = 1
+duration_timer = 1
 
-if duration1 == 1:
+if duration_timer == 1:
     duration = True
-    duration1 += 1
+    duration_timer += 1
 
 explode(duration)

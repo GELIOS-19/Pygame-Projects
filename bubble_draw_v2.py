@@ -2,12 +2,11 @@ import random
 import time
 
 import pygame
-import pygame.gfxdraw
 
 pygame.init()
 
-win = pygame.display.set_mode((810, 600))
-pygame.display.set_caption("Bubble Draw v1.3")
+win = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Bubble Draw v1.2")
 clock = pygame.time.Clock()
 
 PINK = (255, 194, 245)
@@ -21,12 +20,6 @@ BRIGHT_YELLOW = (246, 255, 0)
 DARK_YELLOW = (178, 181, 81)
 DARK_CYAN = (50, 166, 168)
 CYAN = (117, 223, 224)
-SAND = (253, 255, 201)
-GRAY = (196, 196, 194)
-GREEN = (0, 200, 255)
-DARK_GREEN = (0, 150, 191)
-RED = (255, 0, 0)
-DARK_RED = (191, 0, 0)
 
 radius = 17
 thickness = 3
@@ -34,8 +27,6 @@ physics_minimum = -1
 physics_maximum = 1
 bubble_life = 500
 bubble_physics = "Stagnant"
-anti_ailiasing = True
-anti_ailiasing_counter = 0
 
 
 def print_to_display(
@@ -76,7 +67,6 @@ def print_to_display(
 
 
 class Bubble(object):
-
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -86,33 +76,11 @@ class Bubble(object):
         self.thickness = thickness
         self.physics_minimum = physics_minimum
         self.physics_maximum = physics_maximum
-        self.anti_ailiasing = anti_ailiasing
 
     def draw(self, win):
-        if self.anti_ailiasing == True:
-            pygame.draw.circle(
-                win, self.color, (self.x, self.y), self.radius, self.thickness
-            )
-            pygame.gfxdraw.aacircle(
-                win, self.x, self.y, self.radius - 1, self.color
-            )
-            pygame.gfxdraw.aacircle(
-                win, self.x, self.y, self.radius, self.color
-            )
-            pygame.gfxdraw.aacircle(
-                win,
-                self.x,
-                self.y,
-                self.radius - self.thickness - 1,
-                self.color,
-            )
-            pygame.gfxdraw.aacircle(
-                win, self.x, self.y, self.radius - self.thickness, self.color
-            )
-        else:
-            pygame.draw.circle(
-                win, self.color, (self.x, self.y), self.radius, self.thickness
-            )
+        pygame.draw.circle(
+            win, self.color, (self.x, self.y), self.radius, self.thickness
+        )
 
     def move(self):
         self.move_x = random.randint(physics_minimum, physics_maximum)
@@ -145,7 +113,6 @@ class Button(object):
         self.label_color = label_color
 
     def create(self, win):
-
         self.mouse_click = pygame.mouse.get_pressed()
         self.mouse_position = pygame.mouse.get_pos()
 
@@ -187,7 +154,6 @@ class Button(object):
             ),
             3,
         )
-        # print_to_display(display, text, font_name, font_size, color, posx, posy, center_around_point, set_custom_dimensions, custom_dimension_width, custom_dim_height)
         print_to_display(
             win,
             self.label,
@@ -215,48 +181,47 @@ class Button(object):
             return True
 
 
-# main loop and required variables:
-
+# Main loop and required variables:
 main_game = True
 
 bubbles = []
 
-POPbutton = Button("POP", 20, BLACK, 693, 10, 100, 50, MAGENTA, DARK_MAGENTA)
+POPbutton = Button("POP", 20, WHITE, 693, 10, 100, 50, MAGENTA, DARK_MAGENTA)
 
-radius_plus = Button("+", 30, BLACK, 693, 110, 100, 50, MAGENTA, DARK_MAGENTA)
-radius_minus = Button("-", 30, BLACK, 693, 170, 100, 50, MAGENTA, DARK_MAGENTA)
+radius_plus = Button("+", 30, WHITE, 693, 110, 100, 50, MAGENTA, DARK_MAGENTA)
+radius_minus = Button("-", 30, WHITE, 693, 170, 100, 50, MAGENTA, DARK_MAGENTA)
 radius_reset = Button(
-    "Reset", 20, BLACK, 693, 230, 100, 50, MAGENTA, DARK_MAGENTA
+    "Reset", 20, WHITE, 693, 230, 100, 50, MAGENTA, DARK_MAGENTA
 )
 
 thickness_plus = Button(
-    "+", 30, BLACK, 693, 320, 100, 50, MAGENTA, DARK_MAGENTA
+    "+", 30, WHITE, 693, 320, 100, 50, MAGENTA, DARK_MAGENTA
 )
 thickness_minus = Button(
-    "-", 30, BLACK, 693, 380, 100, 50, MAGENTA, DARK_MAGENTA
+    "-", 30, WHITE, 693, 380, 100, 50, MAGENTA, DARK_MAGENTA
 )
 thickness_reset = Button(
-    "Reset", 20, BLACK, 693, 440, 100, 50, MAGENTA, DARK_MAGENTA
+    "Reset", 20, WHITE, 693, 440, 100, 50, MAGENTA, DARK_MAGENTA
 )
 
 bubble_physics_fall = Button(
-    "Fall", 20, BLACK, 122, 537, 100, 50, CYAN, DARK_CYAN
+    "Fall", 20, WHITE, 122, 537, 100, 50, CYAN, DARK_CYAN
 )
 bubble_physics_rise = Button(
-    "Rise", 20, BLACK, 322, 537, 100, 50, CYAN, DARK_CYAN
+    "Rise", 20, WHITE, 322, 537, 100, 50, CYAN, DARK_CYAN
 )
 bubble_physics_stay = Button(
-    "Stagnant", 20, BLACK, 522, 537, 100, 50, CYAN, DARK_CYAN
+    "Stagnant", 20, WHITE, 522, 537, 100, 50, CYAN, DARK_CYAN
 )
 
 life_button_plus = Button(
-    "+", 30, BLACK, 20, 160, 100, 50, MAGENTA, DARK_MAGENTA
+    "+", 30, WHITE, 20, 160, 100, 50, MAGENTA, DARK_MAGENTA
 )
 life_button_minus = Button(
-    "-", 30, BLACK, 20, 240, 100, 50, MAGENTA, DARK_MAGENTA
+    "-", 30, WHITE, 20, 240, 100, 50, MAGENTA, DARK_MAGENTA
 )
 life_button_reset = Button(
-    "Reset", 20, BLACK, 20, 320, 100, 50, MAGENTA, DARK_MAGENTA
+    "Reset", 20, WHITE, 20, 320, 100, 50, MAGENTA, DARK_MAGENTA
 )
 
 exit_button = Button(
@@ -264,42 +229,21 @@ exit_button = Button(
 )
 
 while main_game:
-
-    if anti_ailiasing == True:
-        anti_ailiasing_button = Button(
-            "Anti-Ailiasing Toggle",
-            12,
-            BLACK,
-            10,
-            420,
-            120,
-            70,
-            GREEN,
-            DARK_GREEN,
-        )
-    else:
-        anti_ailiasing_button = Button(
-            "Anti-Ailiasing Toggle", 12, BLACK, 10, 420, 120, 70, RED, DARK_RED
-        )
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
 
     clock.tick(60)
-    win.fill(GRAY)
-    pygame.draw.rect(win, BLUE, (150, 60, 520, 417), 0)
-    pygame.draw.rect(win, BLACK, (147, 57, 524, 421), 4)
+    win.fill(BLUE)
 
-    # everything must be drawn after this point
-
+    # Everything must be drawn after this point
     print_to_display(
         win,
         "If thickness is equal to 0, then the bubbles will be solid",
         "freesansbold.ttf",
         20,
-        BLACK,
+        PINK,
         350,
         30,
         True,
@@ -312,7 +256,7 @@ while main_game:
         "Radius : " + str(radius),
         "freesansbold.ttf",
         15,
-        BLACK,
+        LIGHT_BLUE,
         693,
         60,
         False,
@@ -325,7 +269,7 @@ while main_game:
         "Thickness : " + str(thickness),
         "freesansbold.ttf",
         15,
-        BLACK,
+        LIGHT_BLUE,
         693,
         275,
         False,
@@ -333,40 +277,25 @@ while main_game:
         100,
         50,
     )
-    if bubble_life == -100:
-        print_to_display(
-            win,
-            "Bubble Life : Infinate ",
-            "freesansbold.ttf",
-            13,
-            BLACK,
-            20,
-            100,
-            False,
-            True,
-            100,
-            50,
-        )
-    else:
-        print_to_display(
-            win,
-            "Bubble Life : " + str(bubble_life),
-            "freesansbold.ttf",
-            15,
-            BLACK,
-            20,
-            100,
-            False,
-            True,
-            100,
-            50,
-        )
+    print_to_display(
+        win,
+        "Bubble Life : " + str(bubble_life),
+        "freesansbold.ttf",
+        15,
+        LIGHT_BLUE,
+        20,
+        100,
+        False,
+        True,
+        100,
+        50,
+    )
     print_to_display(
         win,
         "Bubble Physics : " + bubble_physics,
         "freesansbold.ttf",
         15,
-        BLACK,
+        LIGHT_BLUE,
         387,
         507,
         True,
@@ -374,39 +303,10 @@ while main_game:
         0,
         0,
     )
-    if anti_ailiasing == True:
-        print_to_display(
-            win,
-            "Anti-Ailiasing : " + str(anti_ailiasing),
-            "freesansbold.ttf",
-            13,
-            GREEN,
-            20,
-            380,
-            False,
-            True,
-            100,
-            50,
-        )
-    else:
-        print_to_display(
-            win,
-            "Anti-Ailiasing : " + str(anti_ailiasing),
-            "freesansbold.ttf",
-            13,
-            RED,
-            20,
-            380,
-            False,
-            True,
-            100,
-            50,
-        )
 
     POPbutton.create(win)
     if POPbutton.is_clicked() == True:
         bubbles = []
-        # print_to_display(display, text, font_name, font_size, color, posx, posy, center_around_point, set_custom_dimensions, custom_dimension_width, custom_dim_height)
         print_to_display(
             win,
             "POP!",
@@ -484,26 +384,14 @@ while main_game:
     if life_button_minus.is_clicked() == True:
         bubble_life -= 100
         time.sleep(0.1)
-        if bubble_life <= -100:
-            bubble_life = -100
 
     life_button_reset.create(win)
     if life_button_reset.is_clicked() == True:
         bubble_life = 500
         time.sleep(0.1)
 
-    anti_ailiasing_button.create(win)
-    if anti_ailiasing_button.is_clicked() == True:
-        anti_ailiasing_counter += 1
-        time.sleep(1)
-        if anti_ailiasing_counter % 2 == 0:
-            anti_ailiasing = True
-        else:
-            anti_ailiasing = False
-
     exit_button.create(win)
     if exit_button.is_clicked() == True:
-        # print_to_display(display, text, font_name, font_size, color, posx, posy, center_around_point, set_custom_dimensions, custom_dimension_width, custom_dim_height)
         print_to_display(
             win,
             "Bye ;(",
@@ -522,8 +410,7 @@ while main_game:
         pygame.quit()
         quit()
 
-    # buttons should be created before this point
-
+    # Buttons should be created before this point
     for bubble in bubbles:
         bubble.draw(win)
         bubble.move()
@@ -542,8 +429,20 @@ while main_game:
 
     if (
         mouse_click[0] == 1
-        and 150 <= mouse_position[0] <= 670
-        and 60 <= mouse_position[1] <= 477
+        and not POPbutton.is_clicked()
+        and not radius_plus.is_clicked()
+        and not radius_minus.is_clicked()
+        and not radius_reset.is_clicked()
+        and not thickness_plus.is_clicked()
+        and not thickness_minus.is_clicked()
+        and not thickness_reset.is_clicked()
+        and not exit_button.is_clicked()
+        and not bubble_physics_rise.is_clicked()
+        and not bubble_physics_fall.is_clicked()
+        and not bubble_physics_stay.is_clicked()
+        and not life_button_plus.is_clicked()
+        and not life_button_minus.is_clicked()
+        and not life_button_reset.is_clicked()
     ):
         bubbles.append(Bubble(mouse_position[0], mouse_position[1]))
 

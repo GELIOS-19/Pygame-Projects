@@ -103,7 +103,6 @@ class Button(object):
         self.italic = italic
 
     def create(self, win):
-
         self.mouse_click = pygame.mouse.get_pressed()
         self.mouse_position = pygame.mouse.get_pos()
 
@@ -167,7 +166,6 @@ class Button(object):
 
 
 class Bubble(object):
-
     def __init__(self, color):
         self.color = color
         theta = random.randint(1, 360) * math.pi / 180
@@ -229,16 +227,14 @@ class Effect(object):
             self.eff_radius,
         )
 
-        # movement
-
+        # Movement
         self.move_x = math.cos(self.eff_dir) * self.eff_vel
         self.move_y = math.sin(self.eff_dir) * self.eff_vel
 
         self.eff_x += self.move_x
         self.eff_y += self.move_y
 
-        # hitbox
-
+        # Hitbox
         self.eff_hitbox = (
             self.eff_x - self.eff_radius,
             self.eff_y - self.eff_radius,
@@ -332,10 +328,9 @@ class Projectile(object):
 
 
 # loops
-
-Menu = True
-Game = False
-Settings = False
+menu = True
+game = False
+settings = False
 
 start_button = Button(
     "Start", 40, False, True, BLACK, 100, 270, 150, 150, GREEN, DARK_GREEN
@@ -345,28 +340,23 @@ quit_button = Button(
 )
 
 # Game related variables
-
 player = Player(400, 300)
 shoot_timer = 0
 click = False
 
 # Player list
-
 bubbles = [Bubble((random.randint(0, 89), random.randint(0, 37), 105))]
 bullets = []
 eff_bubbles = []
 
-while Menu:
-
-    # events
-
+while menu:
+    # Events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
 
     # Basic Print
-
     win.fill(WHITE)
     print_to_display(
         win,
@@ -399,13 +389,12 @@ while Menu:
         0,
     )
 
-    # Buttons and Functionality
-
+    # Buttons and functionality
     start_button.create(win)
     if start_button.is_clicked() == True:
         time.sleep(0.1)
-        Game = True
-        Menu = False
+        game = True
+        menu = False
 
     quit_button.create(win)
     if quit_button.is_clicked() == True:
@@ -414,10 +403,8 @@ while Menu:
 
     pygame.display.update()
 
-while Game:
-
-    # events
-
+while game:
+    # Events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -425,14 +412,13 @@ while Game:
 
     mouse_click = pygame.mouse.get_pressed()
 
-    # timers
+    # Timers
     if shoot_timer > 0:
         shoot_timer += 1
     if shoot_timer > 500:
         shoot_timer = 0
 
-    # drawing
-
+    # Drawing
     player.draw(win)
 
     for bubble in bubbles:
@@ -453,7 +439,6 @@ while Game:
         shoot_timer = 1
 
     # Particle draw
-
     for bullet in bullets:
         bullet.draw(win)
         bullet.move()
@@ -508,8 +493,7 @@ while Game:
     for eff_bubble in eff_bubbles:
         eff_bubble.bubble_pop_effect(win)
 
-    # Game Over Check
-
+    # Game over check
     if (
         bubble.hitbox[0] + bubble.hitbox[2] >= player.hitbox_player[0]
         and bubble.hitbox[0]
@@ -520,8 +504,7 @@ while Game:
     ):
         print("hi")
 
-    # lag management
-
+    # Lag management
     if len(bullets) > 50:
         bullets.pop(0)
     if len(eff_bubbles) > 50:

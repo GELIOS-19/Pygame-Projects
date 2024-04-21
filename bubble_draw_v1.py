@@ -69,7 +69,6 @@ class Button(object):
         self.label_color = label_color
 
     def create(self, win):
-
         self.mouse_click = pygame.mouse.get_pressed()
         self.mouse_position = pygame.mouse.get_pos()
 
@@ -130,7 +129,6 @@ bubbles = []
 POPbutton = Button("POP", 20, WHITE, 693, 10, 100, 50, MAGENTA, DARK_MAGENTA)
 
 while True:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -139,8 +137,7 @@ while True:
     clock.tick(60)
     win.fill(BLUE)
 
-    # everything must be drawn after this point
-
+    # Everything must be drawn after this point
     POPbutton.create(win)
     if POPbutton.is_clicked() == True:
         bubbles = []
@@ -150,8 +147,7 @@ while True:
         pygame.display.update()
         time.sleep(1)
 
-    # buttons should be created before this point
-
+    # Buttons should be created before this point
     for bubble in bubbles:
         bubble.draw(win)
         bubble.move()

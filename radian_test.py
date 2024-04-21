@@ -22,7 +22,6 @@ RANDOM_COLOR = (
 
 
 class Bubble(object):
-
     def __init__(self, color):
         self.color = color
         self.radius = random.randint(4, 40)
@@ -61,7 +60,6 @@ class Bubble(object):
 bubbles = [Bubble(TEAL)]
 
 while True:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()

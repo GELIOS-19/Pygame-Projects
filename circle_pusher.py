@@ -10,7 +10,7 @@ import pygame
 from pygame.locals import *
 
 
-# exit the program
+# Exit the program
 def events():
     for event in pygame.event.get():
         if event.type == QUIT or (
@@ -20,24 +20,24 @@ def events():
             sys.exit()
 
 
-# define display surface
+# Define display surface
 W, H = 1920, 1080
 HW, HH = W / 2, H / 2
 AREA = W * H
 
-# initialise display
+# Initialize display
 pygame.init()
 CLOCK = pygame.time.Clock()
 DS = pygame.display.set_mode((W, H))
 pygame.display.set_caption("code.Pylet - Circle Pusher")
 FPS = 120
 
-# define some colors
+# Define some colors
 BLACK = (0, 0, 0, 255)
 WHITE = (255, 255, 255, 255)
 
 
-class circle:
+class Circle:
     def __init__(self, xy, radius, id):
         self.xy = xy
         self.radius = radius
@@ -73,7 +73,7 @@ class circle:
         )
 
 
-class circles:
+class CircleCollection:
     def __init__(self):
         self.container = list([])
         self.overlap = list([])
@@ -93,7 +93,7 @@ class circles:
                     break
             if noOverlap:
                 break
-        self.container.append(circle(xy, radius, len(self.container)))
+        self.container.append(Circle(xy, radius, len(self.container)))
 
     def collision(self):
         self.overlap.append(self.container[0])
@@ -121,17 +121,17 @@ class circles:
         self.drawAll()
 
 
-circs = circles()
+circles = CircleCollection()
 for i in range(0, 200):
-    circs.add()
+    circles.add()
 
-# main loop
+# Main loop
 while True:
     events()
 
     mx, my = pygame.mouse.get_pos()
-    circs.container[0].setXY([mx, my])
-    circs.do()
+    circles.container[0].setXY([mx, my])
+    circles.do()
 
     pygame.display.update()
     CLOCK.tick(FPS)

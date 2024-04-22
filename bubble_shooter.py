@@ -74,21 +74,7 @@ class Button(object):
         else:
             pygame.draw.rect(win, self.inactive_color, (self.button_x, self.button_y, self.button_width, self.button_height))
 
-        print_to_display(
-            win,
-            self.label,
-            "Times New Roman",
-            self.label_size,
-            self.bold,
-            self.italic,
-            self.label_color,
-            self.button_x,
-            self.button_y,
-            False,
-            True,
-            self.button_width,
-            self.button_height,
-        )
+        print_to_display(win, self.label, "Times New Roman", self.label_size, self.bold, self.italic, self.label_color, self.button_x, self.button_y, False, True, self.button_width, self.button_height)
 
     def is_clicked(self):
         if self.button_x + self.button_width > self.mouse_position[0] > self.button_x and self.button_y + self.button_height > self.mouse_position[1] > self.button_y and self.mouse_click[0] == 1:

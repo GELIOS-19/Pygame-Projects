@@ -27,7 +27,6 @@ def print_to_display(text, font_name, font_size, color, x, y, width, height):
 
 
 class Bubble(object):
-
     def __init__(self, x, y):
         self.x = x
         self.y = y
